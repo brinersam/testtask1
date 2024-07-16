@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa1e5e20f92ff847a230bec943cfcea, type: 3}
+  m_Name: Map_0
+  m_EditorClassIdentifier: 
+  MapNodes:
+  - Id: 0
+    ConnectedNodeIds: 
+    Flavor: {fileID: 0}
+    State: 2
+  - Id: 1
+    ConnectedNodeIds: 0200000003000000
+    Flavor: {fileID: 11400000, guid: be0464e003529f6469b5f5da4fd981b7, type: 2}
+    State: 1
+  - Id: 2
+    ConnectedNodeIds: 
+    Flavor: {fileID: 0}
+    State: 0
+  - Id: 3
+    ConnectedNodeIds: 
+    Flavor: {fileID: 11400000, guid: be0464e003529f6469b5f5da4fd981b7, type: 2}
+    State: 0
+  GlobalFlavor: {fileID: 11400000, guid: 13b7f6805d0a0764cab7e56c98a14b53, type: 2}
