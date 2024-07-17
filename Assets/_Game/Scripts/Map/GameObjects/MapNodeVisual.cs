@@ -1,50 +1,52 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RoomVisual : MonoBehaviour, IMapObject, IPointerDownHandler
+public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
 {
     private Image _mapIcon;
+    private MapNodeData _latestData;
+
+    public event Action OnUpdated;
 
     private void Awake()
     {
         _mapIcon = GetComponent<Image>();
     }
 
-    private void Update()
-    {
-        
-    }
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("click!!");
+        _latestData.SetState(MapNodeState.Explored);
+        OnUpdated?.Invoke();
     }
 
     public void Setup(MapNodeData mapObjectData)
     {
-        SetIconDependingOnState(mapObjectData);
+        _latestData = mapObjectData;
+        SetIconDependingOnState();
     }
 
-    private void SetIconDependingOnState(MapNodeData mapObjectData)
+    private void SetIconDependingOnState()
     {
         Sprite sprite;
 
-        switch (mapObjectData.State)
+        switch (_latestData.State)
         {
             default:
             case MapNodeState.Open:
                 {
-                    sprite = mapObjectData.Flavor.MapIcon_Open;
+                    sprite = _latestData.Flavor.MapIcon_Open;
                     break;
                 }
             case MapNodeState.Locked:
                 {
-                    sprite = mapObjectData.Flavor.MapIcon_Locked;
+                    sprite = _latestData.Flavor.MapIcon_Locked;
                     break;
                 }
             case MapNodeState.Explored:
                 {
-                    sprite = mapObjectData.Flavor.MapIcon_Explored;
+                    sprite = _latestData.Flavor.MapIcon_Explored;
                     break;
                 }
         }
@@ -52,3 +54,4 @@ public class RoomVisual : MonoBehaviour, IMapObject, IPointerDownHandler
         _mapIcon.sprite = sprite;
     }
 }
+

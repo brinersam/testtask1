@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 
 public class MapNodeData
 {
     public int Id { get; }
-    public List<MapNodeData> ConnectedNodes;
+    public HashSet<MapNodeData> ConnectedNodes { get; }
     public SOMapNodeFlavor Flavor { get; }
     public MapNodeState State { get; private set; }
-    public Action OnExplored;
+    public event Action OnExplored;
 
-    public MapNodeData(int id, SOMapNodeFlavor flavor, MapNodeState state, Action onExplored = null)
+    public MapNodeData(int id, SOMapNodeFlavor flavor, MapNodeState state)
     {
+        ConnectedNodes = new();
         Id = id;
         Flavor = flavor;
         State = state;
 
-        if (onExplored == null)
-            onExplored = UnlockNeighbouringNodes;
+        OnExplored = UnlockNeighbouringNodes;
+    }
 
-        OnExplored = onExplored;
+    public void AddTwoWayConnectionToNode(MapNodeData node)
+    {
+        if (ConnectedNodes.Contains(node))
+            return;
+        this.ConnectedNodes.Add(node);
+        node.AddTwoWayConnectionToNode(this);
     }
 
     public void SetState(MapNodeState state)

@@ -7,13 +7,13 @@ public class MapNodeRenderer : MonoBehaviour
     [SerializeField] private GameObject _roomVisualPrefab;
     [SerializeField] private Transform _roomVisualContainer;
 
-    private List<RoomVisual> _visualChildren = new();
-    private IMapNodeProvider _provider;
+    private List<MapNodeVisual> _visualChildren = new();
+    private IMapNodeModel _mapModel;
 
     [Inject]
-    void Init(IMapNodeProvider provider)
+    void Init(IMapNodeModel model)
     {
-        _provider = provider;
+        _mapModel = model;
     }
         
     void Start()
@@ -27,7 +27,7 @@ public class MapNodeRenderer : MonoBehaviour
         int childrenCount = _visualChildren.Count;
         
         // Iterate over all rooms provided
-        foreach (MapNodeData roomData in _provider)
+        foreach (MapNodeData roomData in _mapModel)
         {
             // If we dont have enough node objects, generate a new one on the fly and add to list
             if (currentChildIdx+1 > childrenCount)
@@ -52,19 +52,23 @@ public class MapNodeRenderer : MonoBehaviour
     private void GenerateNodeGObject(ref int childCount)
     {
         GameObject obj = (GameObject)Instantiate(_roomVisualPrefab, _roomVisualContainer, instantiateInWorldSpace: false);
-        if (!obj.TryGetComponent(out RoomVisual roomVisual))
+        if (!obj.TryGetComponent(out MapNodeVisual roomVisual))
         {
-            Debug.LogError($"{obj.gameObject.name} prefab lacks {typeof(RoomVisual)} component!", gameObject);
+            Debug.LogError($"{obj.gameObject.name} prefab lacks {typeof(MapNodeVisual)} component!", gameObject);
             return;
         }
         _visualChildren.Add(roomVisual);
+
+        roomVisual.OnUpdated += RefreshRoomVisuals;
+
         childCount++;
     }
 
 
 }
 
-public interface IMapNodeProvider : IEnumerable<MapNodeData>
+public interface IMapNodeModel : IEnumerable<MapNodeData>
 {
+
 
 }

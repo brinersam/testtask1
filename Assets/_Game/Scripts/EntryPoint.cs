@@ -15,7 +15,7 @@ namespace Game.Infrastructure
             // Load enemy types
             // Load cards
 
-            BindAndWarmupService<IMapNodeProvider, MapData>(_warmupQueue, new MapData(_gameConfig.ConfigMap));
+            BindAndWarmupService<IMapNodeModel, MapData>(_warmupQueue, new MapData(_gameConfig.ConfigMap));
 
 
             Debug.Log("Bindings installed..");

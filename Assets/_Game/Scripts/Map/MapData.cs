@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class MapData : IMapNodeProvider, IWarmupableSystem
+public class MapData : IMapNodeModel, IWarmupableSystem
 {
     private readonly SOMap _config;
-    private readonly Dictionary<int, MapNodeData> _nodeList;
+    private Dictionary<int, MapNodeData> _nodeList;
 
     public MapData(SOMap config)
     {
@@ -15,21 +15,8 @@ public class MapData : IMapNodeProvider, IWarmupableSystem
     
     public void WarmUp()
     {
-        CreateNodes();
-    }
-
-    private void CreateNodes()
-    {
-        foreach(MapNode nodeData in _config.MapNodes.OrderBy(x => x.Id))
-        {
-            MapNodeData node = new MapNodeData(
-                nodeData.Id,
-                nodeData.Flavor ?? _config.GlobalFlavor,
-                nodeData.State);
-            _nodeList.Add(node.Id, node);
-
-            // link them here too TODO
-        }
+        var assembler = new NodeTreeAssembler(_config);
+        _nodeList = assembler.Assemble();
     }
 
     public IEnumerator GetEnumerator()
