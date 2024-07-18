@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class MapData : INodeProvider, IMapModel, IWarmupableSystem
+public class MapModel : INodeProvider, IMapModel, IWarmupableSystem
 {
     private readonly SOMap _config;
     private Dictionary<int, MapNodeData> _nodeTree;
     private IMapRenderer _renderer;
+    private IGameStateManager _stateMgr;
 
-    public MapData(SOMap config)
+    public MapModel(SOMap config, IGameStateManager stateManager)
     {
         _config = config;
         _nodeTree = new();
+        _stateMgr = stateManager;
     }
     
     public void WarmUp()
@@ -22,8 +24,10 @@ public class MapData : INodeProvider, IMapModel, IWarmupableSystem
 
     public void HandleNodeInteraction(MapNodeData node)
     {
-        node.SetState(MapNodeState.Explored);
-        _renderer.RefreshRoomVisuals();
+        _stateMgr.EnterCombat(node);
+
+        //node.SetState(MapNodeState.Explored);
+        //_renderer.RefreshRoomVisuals();
     }
 
     public void RegisterRenderer(IMapRenderer renderer)
@@ -45,4 +49,3 @@ public class MapData : INodeProvider, IMapModel, IWarmupableSystem
         return _nodeTree.Select(x => x.Value).OrderBy(x => x.Id).GetEnumerator();
     }
 }
-

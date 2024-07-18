@@ -15,10 +15,16 @@ namespace Game.Infrastructure
             // Load enemy types
             // Load cards
 
-            MapData mapData = new MapData(_gameConfig.ConfigMap);
+
+            PlayerData playerData = new PlayerData();
+            GameStateManager GSM = new GameStateManager();
+
+            MapModel mapData = new MapModel(_gameConfig.ConfigMap, GSM);
+
+
             _warmupQueue.Enqueue(mapData);
-            Container.Bind<INodeProvider>().To<MapData>().FromInstance(mapData).AsCached();
-            Container.Bind<IMapModel>().To<MapData>().FromInstance(mapData).AsCached();
+            Container.Bind<INodeProvider>().To<MapModel>().FromInstance(mapData).AsCached();
+            Container.Bind<IMapModel>().To<MapModel>().FromInstance(mapData).AsCached();
 
 
             Debug.Log("Bindings installed..");

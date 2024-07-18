@@ -4,4 +4,5 @@
 public class SOGameConfig : ScriptableObject
 {
     public SOMap ConfigMap;
+    public SOPlayerData PlayerConfig;
 }

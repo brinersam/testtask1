@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Map_0", menuName = "ScriptableObjects/MapNode/_Map")]
+[CreateAssetMenu(fileName = "Map_0", menuName = "ScriptableObjects/Configs/MapConfig")]
 public class SOMap : ScriptableObject
 {
     public MapNodeConfig[] MapNodes;

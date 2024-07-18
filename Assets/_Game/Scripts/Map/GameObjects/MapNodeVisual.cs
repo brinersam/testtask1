@@ -22,6 +22,7 @@ public class MapNodeVisual : MonoBehaviour, IMapNode, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("Bruh!");
         _mapModel.HandleNodeInteraction(_currentData);
     }
     
