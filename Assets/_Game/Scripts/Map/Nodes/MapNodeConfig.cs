@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 [Serializable]
-public struct MapNode
+public struct MapNodeConfig
 {
     public int Id;
     public List<int> ConnectedNodeIds;

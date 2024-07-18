@@ -13,7 +13,7 @@ public class NodeTreeAssembler
         Dictionary<int, MapNodeData> result = new();
         Queue<(MapNodeData from, int toId)> nodesTolinkQueue = new();
 
-        foreach (MapNode nodeData in _config.MapNodes)
+        foreach (MapNodeConfig nodeData in _config.MapNodes)
         {
             MapNodeData node = new MapNodeData(
                 nodeData.Id,

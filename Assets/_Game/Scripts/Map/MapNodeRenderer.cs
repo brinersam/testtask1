@@ -57,7 +57,6 @@ public class MapNodeRenderer : MonoBehaviour, IMapRenderer
     private void GenerateNodeGObject(ref int childCount)
     {
         GameObject obj = _container.InstantiatePrefab(_roomVisualPrefab, _roomVisualContainer);
-        //GameObject obj = (GameObject)Instantiate(_roomVisualPrefab, _roomVisualContainer, instantiateInWorldSpace: false);
         if (!obj.TryGetComponent(out MapNodeVisual roomVisual))
         {
             Debug.LogError($"{obj.gameObject.name} prefab lacks {typeof(MapNodeVisual)} component!", gameObject);

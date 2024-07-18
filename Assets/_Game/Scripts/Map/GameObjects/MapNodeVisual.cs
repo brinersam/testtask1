@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
-public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
+public class MapNodeVisual : MonoBehaviour, IMapNode, IPointerDownHandler
 {
     private IMapModel _mapModel; 
     private Image _mapIcon;
@@ -57,10 +57,4 @@ public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
 
         _mapIcon.sprite = sprite;
     }
-}
-
-internal interface IMapModel
-{
-    void HandleNodeInteraction(MapNodeData node);
-    void RegisterRenderer(IMapRenderer renderer);
 }
