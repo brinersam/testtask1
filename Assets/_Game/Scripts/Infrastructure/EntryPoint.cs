@@ -12,12 +12,16 @@ namespace Game.Infrastructure
         public override void InstallBindings()
         {
             _warmupQueue = new Queue<IWarmupableSystem>();
-            // Load enemy types
+            // Load enemy factories
             // Load cards
 
 
-            PlayerData playerData = new PlayerData();
+            PlayerData playerData = new PlayerData(); // todo
             GameStateManager GSM = new GameStateManager();
+
+            // gsm.AddGameState(MapState)
+            // gsm.AddGameState(BattleState)
+            // gsm.AddGameState(TreasureRoomState)
 
             MapModel mapData = new MapModel(_gameConfig.ConfigMap, GSM);
 
@@ -50,7 +54,7 @@ namespace Game.Infrastructure
         {
             Debug.Log("Startup......");
             var loaderHandle = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-            loaderHandle.completed += (x) => SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
+            loaderHandle.completed += (x) => SceneManager.SetActiveScene(SceneManager.GetSceneAt(1)); //GSM.SetState(Map)
         }
 
         private void BindAndWarmupService<TInterface, TService>(Queue<IWarmupableSystem> warmupList, TService service)

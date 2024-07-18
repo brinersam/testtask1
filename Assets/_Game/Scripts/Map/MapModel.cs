@@ -24,10 +24,10 @@ public class MapModel : INodeProvider, IMapModel, IWarmupableSystem
 
     public void HandleNodeInteraction(MapNodeData node)
     {
-        _stateMgr.EnterCombat(node);
+        //_stateMgr.EnterCombat(node);
 
-        //node.SetState(MapNodeState.Explored);
-        //_renderer.RefreshRoomVisuals();
+        node.SetState(MapNodeState.Explored);
+        _renderer.RefreshRoomVisuals();
     }
 
     public void RegisterRenderer(IMapRenderer renderer)

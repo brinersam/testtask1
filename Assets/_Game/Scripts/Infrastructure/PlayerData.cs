@@ -1,5 +1,5 @@
 ﻿public class PlayerData
 {
-    CreatureCondition _stats;
+    Entity _entity;
     Deck _deck;
 }

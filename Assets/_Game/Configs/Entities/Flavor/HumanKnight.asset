@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bd2bc5f91d22c4a812c8d6ef58f756, type: 3}
-  m_Name: GameConfig
+  m_Script: {fileID: 11500000, guid: cbe595f0ef73a5446a2222209a483baf, type: 3}
+  m_Name: HumanKnight
   m_EditorClassIdentifier: 
-  ConfigMap: {fileID: 11400000, guid: f68997ea479d64f40ab7ac9df4f8befd, type: 2}
-  PlayerEntity: {fileID: 11400000, guid: 1440f2a14385cd849a5ef276bbf017ea, type: 2}
+  Name: Human Knight
+  Description: Oridnary knight
+  CharacterSprite: {fileID: 0}
