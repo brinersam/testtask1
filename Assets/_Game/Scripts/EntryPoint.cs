@@ -15,7 +15,10 @@ namespace Game.Infrastructure
             // Load enemy types
             // Load cards
 
-            BindAndWarmupService<IMapNodeModel, MapData>(_warmupQueue, new MapData(_gameConfig.ConfigMap));
+            MapData mapData = new MapData(_gameConfig.ConfigMap);
+            _warmupQueue.Enqueue(mapData);
+            Container.Bind<INodeProvider>().To<MapData>().FromInstance(mapData).AsCached();
+            Container.Bind<IMapModel>().To<MapData>().FromInstance(mapData).AsCached();
 
 
             Debug.Log("Bindings installed..");
@@ -50,7 +53,7 @@ namespace Game.Infrastructure
             if (!warmupList.Contains(service))
                 warmupList.Enqueue(service);
 
-            Container.Bind<TInterface>().To<TService>().FromInstance(service).AsSingle();
+            Container.Bind<TInterface>().To<TService>().FromInstance(service).AsCached();
         }
 
 

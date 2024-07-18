@@ -1,4 +1,4 @@
 ﻿public interface IMapObject
 {
-    void Setup(MapNodeData mapObjectData);
+    void SetData(MapNodeData mapObjectData);
 }

@@ -1,14 +1,19 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
 {
+    private IMapModel _mapModel; 
     private Image _mapIcon;
-    private MapNodeData _latestData;
+    private MapNodeData _currentData;
 
-    public event Action OnUpdated;
+    [Inject]
+    private void Inject(IMapModel model)
+    {
+        _mapModel = model;
+    }
 
     private void Awake()
     {
@@ -17,13 +22,12 @@ public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _latestData.SetState(MapNodeState.Explored);
-        OnUpdated?.Invoke();
+        _mapModel.HandleNodeInteraction(_currentData);
     }
-
-    public void Setup(MapNodeData mapObjectData)
+    
+    public void SetData(MapNodeData mapObjectData)
     {
-        _latestData = mapObjectData;
+        _currentData = mapObjectData;
         SetIconDependingOnState();
     }
 
@@ -31,22 +35,22 @@ public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
     {
         Sprite sprite;
 
-        switch (_latestData.State)
+        switch (_currentData.State)
         {
             default:
             case MapNodeState.Open:
                 {
-                    sprite = _latestData.Flavor.MapIcon_Open;
+                    sprite = _currentData.Flavor.MapIcon_Open;
                     break;
                 }
             case MapNodeState.Locked:
                 {
-                    sprite = _latestData.Flavor.MapIcon_Locked;
+                    sprite = _currentData.Flavor.MapIcon_Locked;
                     break;
                 }
             case MapNodeState.Explored:
                 {
-                    sprite = _latestData.Flavor.MapIcon_Explored;
+                    sprite = _currentData.Flavor.MapIcon_Explored;
                     break;
                 }
         }
@@ -55,3 +59,8 @@ public class MapNodeVisual : MonoBehaviour, IMapObject, IPointerDownHandler
     }
 }
 
+internal interface IMapModel
+{
+    void HandleNodeInteraction(MapNodeData node);
+    void RegisterRenderer(IMapRenderer renderer);
+}
