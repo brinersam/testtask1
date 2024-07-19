@@ -1697,6 +1697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roomVisualPrefab: {fileID: 1773945356627093443, guid: 03d322186d6f0834496aedfdcc6486a8,
     type: 3}
+  _UI: {fileID: 2514700788536479817}
   _roomVisualContainer: {fileID: 2540712940492232226}
 --- !u!1001 &2042215556
 PrefabInstance:
@@ -2015,7 +2016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4408651886350064537
 MonoBehaviour:
   m_ObjectHideFlags: 0

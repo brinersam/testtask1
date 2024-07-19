@@ -28,6 +28,16 @@ public class GameStateMachine
         ((IGameState<TState, TConfig>)stateRaw).Enter(stateConfig);
     }
 
+    public void EnterState<TState>()
+        where TState : IGameState
+    {
+        ExitCurrentState();
+        _currentState = typeof(TState);
+
+        var stateRaw = _registeredStates[typeof(TState)];
+        stateRaw.Enter();
+    }
+
     private void ExitCurrentState()
     {
         if (_currentState != null)

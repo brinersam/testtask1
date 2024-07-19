@@ -1,11 +1,14 @@
-﻿public class PlayerData
+﻿namespace Game.Infrastructure
 {
-    public Entity Entity { get; }
-    //public Deck Deck { get; }
-
-    public PlayerData(Entity entity)//, Deck deck)
+    public class PlayerData
     {
-        Entity = entity;
-        //Deck = deck;
+        public Entity Entity { get; }
+        //public Deck Deck { get; }
+
+        public PlayerData(Entity entity)//, Deck deck)
+        {
+            Entity = entity;
+            //Deck = deck;
+        }
     }
 }

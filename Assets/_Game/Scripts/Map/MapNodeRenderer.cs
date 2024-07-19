@@ -5,6 +5,7 @@ using Zenject;
 public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
 {
     [SerializeField] private GameObject _roomVisualPrefab;
+    [SerializeField] private Transform _UI;
     [SerializeField] private Transform _roomVisualContainer;
 
     private List<MapNodeVisual> _visualChildren = new();
@@ -21,13 +22,15 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
         model.RegisterRenderer(this);
     }
         
-    void Start()
-    {
-        Render();
-    }
+    //void Start()
+    //{
+    //    Render();
+    //}
 
     public void Render()
     {
+        _UI.gameObject.SetActive(true);
+
         int currentChildIdx = 0;
         int childrenCount = _visualChildren.Count;
         
@@ -43,6 +46,11 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
             _visualChildren[currentChildIdx].SetData(roomData);
             currentChildIdx++;
         }
+    }
+
+    public void Hide()
+    {
+        _UI.gameObject.SetActive(false);
     }
 
     private void GenerateNodeGObject(ref int childCount)
@@ -63,6 +71,7 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
 
 public interface IGameStateRenderer
 {
+    void Hide();
     void Render();
 }
 

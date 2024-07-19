@@ -1,4 +1,7 @@
-﻿internal interface IWarmupableSystem
+﻿namespace Game.Infrastructure
 {
-    void WarmUp();
+    internal interface IWarmupableSystem
+    {
+        void WarmUp();
+    }
 }
