@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
+public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer
 {
     [SerializeField] private GameObject _roomVisualPrefab;
     [SerializeField] private Transform _UI;
@@ -12,7 +12,6 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
     private INodeProvider _nodeProvider;
     private IMapModel _model;
 
-
     [Inject] DiContainer _container;
     [Inject]
     void Init(INodeProvider nodeProvider, IMapModel model)
@@ -21,11 +20,6 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
         _model = model;
         model.RegisterRenderer(this);
     }
-        
-    //void Start()
-    //{
-    //    Render();
-    //}
 
     public void Render()
     {
@@ -33,12 +27,12 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
 
         int currentChildIdx = 0;
         int childrenCount = _visualChildren.Count;
-        
+
         // Iterate over all rooms provided
         foreach (MapNodeData roomData in _nodeProvider)
         {
             // If we dont have enough node objects, generate a new one on the fly and add to list
-            if (currentChildIdx+1 > childrenCount)
+            if (currentChildIdx + 1 > childrenCount)
             {
                 GenerateNodeGObject(ref childrenCount);
             }
@@ -69,12 +63,3 @@ public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
 
 }
 
-public interface IGameStateRenderer
-{
-    void Hide();
-    void Render();
-}
-
-public interface INodeProvider : IEnumerable<MapNodeData>
-{
-}

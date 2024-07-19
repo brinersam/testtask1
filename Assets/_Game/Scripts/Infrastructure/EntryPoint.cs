@@ -25,13 +25,16 @@ namespace Game.Infrastructure
             GameState_Map stateMap = new GameState_Map(_GSM, _gameConfig.ConfigMap);
             GameState_Battle stateBattle = new GameState_Battle(playerData);
 
-            _GSM.AddGameState(stateBattle);
+            // enemy factories and stuff should be passed through map state trainsition i guess
+
             _GSM.AddGameState(stateMap);
+            _GSM.AddGameState(stateBattle);
+            
 
             _warmupQueue.Enqueue(stateMap);
+
             Container.Bind<INodeProvider>().To<GameState_Map>().FromInstance(stateMap).AsCached();
             Container.Bind<IMapModel>().To<GameState_Map>().FromInstance(stateMap).AsCached();
-
 
             Debug.Log("Bindings installed..");
         }
