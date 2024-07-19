@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,9 +15,13 @@ namespace Game.Infrastructure
             // Load enemy factories
             // Load cards
 
+            PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity, false));
+            GameStateMachine GSM = new GameStateMachine();
 
-            //PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity, false)); 
-            MapModel mapData = new MapModel(_gameConfig.ConfigMap);
+            GSM.AddGameState(new GameState_Battle());
+            GSM.AddGameState(new GameState_Map());
+
+            MapModel mapData = new MapModel(GSM, _gameConfig.ConfigMap);
 
 
             _warmupQueue.Enqueue(mapData);
@@ -33,22 +36,7 @@ namespace Game.Infrastructure
         {
             // InstallBindings() is invoked here
             SystemsWarmup();
-            DEBUGMockGameSession();
             LoadGameScene();
-        }
-
-        private void DEBUGMockGameSession()
-        {
-            PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity, false));
-
-            GameStateMachine GSM = new GameStateMachine();
-            GSM.AddGameState(new GameState_Battle());
-            GSM.AddGameState(new GameState_Map());
-
-            GSM.EnterState<GameState_Map, GameState_Map_Params>
-                (new GameState_Map_Params() { _characterStats = ("john", "health") });
-            GSM.EnterState<GameState_Battle, GameState_Battle_Params>
-                (new GameState_Battle_Params() { playerData  = playerData, roomData = "Wet swamp" });
         }
 
         private void SystemsWarmup()

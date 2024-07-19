@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class MapNodeRenderer : MonoBehaviour, IMapRenderer
+public class MapNodeRenderer : MonoBehaviour, IGameStateRenderer
 {
     [SerializeField] private GameObject _roomVisualPrefab;
     [SerializeField] private Transform _roomVisualContainer;
@@ -23,10 +23,10 @@ public class MapNodeRenderer : MonoBehaviour, IMapRenderer
         
     void Start()
     {
-        RefreshRoomVisuals();
+        Render();
     }
 
-    public void RefreshRoomVisuals()
+    public void Render()
     {
         int currentChildIdx = 0;
         int childrenCount = _visualChildren.Count;
@@ -43,15 +43,6 @@ public class MapNodeRenderer : MonoBehaviour, IMapRenderer
             _visualChildren[currentChildIdx].SetData(roomData);
             currentChildIdx++;
         }
-
-        //// If we have more gameObjects than data, turn them off (probably not possible to reach this actually)
-        //if (currentChildIdx <= _visualChildren.Count)
-        //{
-        //    for (int i = currentChildIdx; i < _visualChildren.Count; i++)
-        //    {
-        //        _visualChildren[i].gameObject.SetActive(false);
-        //    }
-        //}
     }
 
     private void GenerateNodeGObject(ref int childCount)
@@ -70,9 +61,9 @@ public class MapNodeRenderer : MonoBehaviour, IMapRenderer
 
 }
 
-public interface IMapRenderer
+public interface IGameStateRenderer
 {
-    void RefreshRoomVisuals();
+    void Render();
 }
 
 public interface INodeProvider : IEnumerable<MapNodeData>

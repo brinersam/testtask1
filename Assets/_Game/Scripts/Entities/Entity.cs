@@ -23,13 +23,4 @@ public class Entity
         _deck = data.StartingDeck;
         _isEnemy = isEnemy;
     }
-
-    public void DEBUGDealDamage(int dmg)
-    {
-        _curHealth -= dmg;
-    }
-    public string DEBUGReadHealth()
-    {
-        return _curHealth + " / " + _maxHealth;
-    }
 }

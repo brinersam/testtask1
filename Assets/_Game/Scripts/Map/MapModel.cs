@@ -5,16 +5,16 @@ using System.Linq;
 
 public class MapModel : INodeProvider, IMapModel, IWarmupableSystem
 {
+    private readonly GameStateMachine _GSM;
     private readonly SOMap _config;
     private Dictionary<int, MapNodeData> _nodeTree;
-    private IMapRenderer _renderer;
-    private IGameStateManager _stateMgr;
+    private IGameStateRenderer _renderer;
 
-    public MapModel(SOMap config)//, IGameStateManager stateManager)
+    public MapModel(GameStateMachine gsm, SOMap config)
     {
         _config = config;
         _nodeTree = new();
-        //_stateMgr = stateManager;
+        _GSM = gsm;
     }
     
     public void WarmUp()
@@ -24,13 +24,12 @@ public class MapModel : INodeProvider, IMapModel, IWarmupableSystem
 
     public void HandleNodeInteraction(MapNodeData node)
     {
-        //_stateMgr.EnterCombat(node);
+        _GSM.EnterState<GameState_Battle, GameState_Battle_Params>
+            (new GameState_Battle_Params() { _mapNode = node});
 
-        node.SetState(MapNodeState.Explored);
-        _renderer.RefreshRoomVisuals();
     }
 
-    public void RegisterRenderer(IMapRenderer renderer)
+    public void RegisterRenderer(IGameStateRenderer renderer)
     {
         if (_renderer != null)
         {

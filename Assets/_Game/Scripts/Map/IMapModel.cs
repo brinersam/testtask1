@@ -1,5 +1,5 @@
 ﻿internal interface IMapModel
 {
     void HandleNodeInteraction(MapNodeData node);
-    void RegisterRenderer(IMapRenderer renderer);
+    void RegisterRenderer(IGameStateRenderer renderer);
 }
