@@ -15,26 +15,30 @@ namespace Game.Infrastructure
         public override void InstallBindings()
         {
             _warmupQueue = new Queue<IWarmupableSystem>();
+            _GSM = new GameStateMachine();
+
             // Load enemy factories
             // Load cards
 
             PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity, false));
 
-            _GSM = new GameStateMachine();
-
+            // Create game states
             GameState_Map stateMap = new GameState_Map(_GSM, _gameConfig.ConfigMap);
-            GameState_Battle stateBattle = new GameState_Battle(playerData);
+            GameState_Battle stateBattle = new GameState_Battle(_GSM, playerData);
 
-            // enemy factories and stuff should be passed through map state trainsition i guess
-
+            // Add State instances to the gsm
             _GSM.AddGameState(stateMap);
             _GSM.AddGameState(stateBattle);
-            
 
+            // Add systens to warmup queue
             _warmupQueue.Enqueue(stateMap);
 
-            Container.Bind<INodeProvider>().To<GameState_Map>().FromInstance(stateMap).AsCached();
+            // State Interface Bindings
             Container.Bind<IMapModel>().To<GameState_Map>().FromInstance(stateMap).AsCached();
+            Container.Bind<IBattleModel>().To<GameState_Battle>().FromInstance(stateBattle).AsCached();
+
+            // Misc bindings 
+            Container.Bind<INodeProvider>().To<GameState_Map>().FromInstance(stateMap).AsCached();
 
             Debug.Log("Bindings installed..");
         }

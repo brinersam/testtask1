@@ -17,6 +17,12 @@ public class GameStateMachine
         _registeredStates[typeof(TState)] = gameState;
     }
 
+    public void AddGameState<TState>(IGameStateEnterable<TState> gameState)
+        where TState : IGameState
+    {
+        _registeredStates[typeof(TState)] = gameState;
+    }
+
     public void EnterState<TState,TConfig>(TConfig stateConfig)
         where TState : IGameState
         where TConfig : IGameStateParams<TState> 
@@ -29,13 +35,13 @@ public class GameStateMachine
     }
 
     public void EnterState<TState>()
-        where TState : IGameState
+        where TState : IGameStateEnterable<TState>
     {
         ExitCurrentState();
         _currentState = typeof(TState);
 
         var stateRaw = _registeredStates[typeof(TState)];
-        stateRaw.Enter();
+        ((IGameStateEnterable<TState>)stateRaw).Enter();
     }
 
     private void ExitCurrentState()

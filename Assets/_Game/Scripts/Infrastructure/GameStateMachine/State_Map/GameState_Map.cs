@@ -4,7 +4,8 @@ using System;
 using System.Linq;
 using Game.Infrastructure;
 
-public class GameState_Map : INodeProvider, IMapModel, IWarmupableSystem, IGameState<GameState_Map, GameState_Map_Params>
+public class GameState_Map : INodeProvider, IMapModel, IGameStateEnterable<GameState_Map>,
+    IWarmupableSystem, IGameStateRendererUser //, IGameState<GameState_Map, GameState_Map_Params>
 {
     private readonly GameStateMachine _GSM;
     private readonly SOMap _config;
@@ -27,7 +28,6 @@ public class GameState_Map : INodeProvider, IMapModel, IWarmupableSystem, IGameS
     {
         _GSM.EnterState<GameState_Battle, GameState_Battle_Params>
             (new GameState_Battle_Params() { _mapNode = node});
-
     }
 
     public void RegisterRenderer(IGameStateRenderer renderer)
@@ -49,10 +49,10 @@ public class GameState_Map : INodeProvider, IMapModel, IWarmupableSystem, IGameS
         return _nodeTree.Select(x => x.Value).OrderBy(x => x.Id).GetEnumerator();
     }
 
-    public void Enter(GameState_Map_Params stateConfig)
-    {
-        Enter();
-    }
+    //public void Enter(GameState_Map_Params stateConfig)
+    //{
+    //    Enter();
+    //}
 
     public void Enter()
     {
@@ -65,6 +65,11 @@ public class GameState_Map : INodeProvider, IMapModel, IWarmupableSystem, IGameS
     }
 }
 
-public struct GameState_Map_Params : IGameStateParams<GameState_Map>
+//public struct GameState_Map_Params : IGameStateParams<GameState_Map>
+//{
+//}
+
+internal interface IMapModel: IGameStateRendererUser
 {
+    void HandleNodeInteraction(MapNodeData node);
 }

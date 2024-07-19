@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 149764861}
   - component: {fileID: 149764865}
   - component: {fileID: 149764864}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BattleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,8 +861,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490640911}
+  - component: {fileID: 490640912}
   m_Layer: 0
-  m_Name: System_Battle
+  m_Name: State_Battle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,6 +884,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1375458649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &490640912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490640910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efca51f348af634180a8b5c026a8735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UI: {fileID: 149764860}
+  _cardPrefab: {fileID: 2074187805179893156, guid: aa6a08c82e8572f4e93848508263837b,
+    type: 3}
+  _playerHandContainer: {fileID: 735627435}
+  _entityPrefab: {fileID: 419400786061158413, guid: e01d81b8535f1134a94285940eff5f8b,
+    type: 3}
+  _entitiesLeftContainer: {fileID: 1008825272}
+  _entitiesRightContainer: {fileID: 1026565222}
 --- !u!1 &600742583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1265,7 @@ GameObject:
   - component: {fileID: 1008487489}
   - component: {fileID: 1008487492}
   - component: {fileID: 1008487491}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerGlobalUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1608,7 +1629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1375458649}
   m_Layer: 0
-  m_Name: =====Systems
+  m_Name: =====GameStates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1719,7 +1740,7 @@ GameObject:
   - component: {fileID: 1950574092}
   - component: {fileID: 1950574093}
   m_Layer: 0
-  m_Name: System_Map
+  m_Name: State_Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1768,6 +1789,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074187805179893156, guid: aa6a08c82e8572f4e93848508263837b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2162019831924137795, guid: aa6a08c82e8572f4e93848508263837b,
         type: 3}
