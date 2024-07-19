@@ -10,11 +10,11 @@ public class MapModel : INodeProvider, IMapModel, IWarmupableSystem
     private IMapRenderer _renderer;
     private IGameStateManager _stateMgr;
 
-    public MapModel(SOMap config, IGameStateManager stateManager)
+    public MapModel(SOMap config)//, IGameStateManager stateManager)
     {
         _config = config;
         _nodeTree = new();
-        _stateMgr = stateManager;
+        //_stateMgr = stateManager;
     }
     
     public void WarmUp()

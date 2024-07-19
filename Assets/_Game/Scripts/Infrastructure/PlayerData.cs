@@ -1,5 +1,11 @@
 ﻿public class PlayerData
 {
-    Entity _entity;
-    Deck _deck;
+    public Entity Entity { get; }
+    //public Deck Deck { get; }
+
+    public PlayerData(Entity entity)//, Deck deck)
+    {
+        Entity = entity;
+        //Deck = deck;
+    }
 }

@@ -11,8 +11,9 @@ public class Entity
 
     private Deck _deck;
     private SOEntity _entityData;
-
     private bool _isEnemy;
+
+    public SOEntity EntityData => _entityData;
 
     public Entity(SOEntity data, bool isEnemy = true) 
     {
@@ -21,5 +22,14 @@ public class Entity
         _maxEnergy = data.StartingStats.MaxEnergy;
         _deck = data.StartingDeck;
         _isEnemy = isEnemy;
+    }
+
+    public void DEBUGDealDamage(int dmg)
+    {
+        _curHealth -= dmg;
+    }
+    public string DEBUGReadHealth()
+    {
+        return _curHealth + " / " + _maxHealth;
     }
 }
