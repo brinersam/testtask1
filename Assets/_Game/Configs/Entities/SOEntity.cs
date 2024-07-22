@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // Bakes into Entity which is later used at runtime anywhere
@@ -7,5 +8,6 @@ public class SOEntity : ScriptableObject
     public SOEntityFlavor Flavor;
     public EntityStats StartingStats;
     public SODeck StartingDeck;
+    public List<ICardEffect> StartingEffects;
 }
 

@@ -17,16 +17,22 @@ MonoBehaviour:
     ConnectedNodeIds: 
     Flavor: {fileID: 0}
     State: 2
+    Spawner: []
   - Id: 1
     ConnectedNodeIds: 0200000003000000
     Flavor: {fileID: 11400000, guid: be0464e003529f6469b5f5da4fd981b7, type: 2}
     State: 1
+    Spawner: []
   - Id: 2
     ConnectedNodeIds: 
     Flavor: {fileID: 0}
     State: 0
+    Spawner: []
   - Id: 3
     ConnectedNodeIds: 
     Flavor: {fileID: 11400000, guid: be0464e003529f6469b5f5da4fd981b7, type: 2}
     State: 0
+    Spawner: []
   GlobalFlavor: {fileID: 11400000, guid: 13b7f6805d0a0764cab7e56c98a14b53, type: 2}
+  GlobalSpawner:
+  - {fileID: 11400000, guid: db90af3015f97334b98b3f1be56c54ef, type: 2}

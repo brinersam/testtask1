@@ -32,7 +32,9 @@ public enum EnumTarget
 }
 
 
-
+public interface ICardEffect
+{
+}
 
 //public enum TargetType
 //{

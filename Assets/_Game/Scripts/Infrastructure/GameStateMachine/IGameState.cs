@@ -1,12 +1,12 @@
+public interface IGameState
+{
+    void Exit();
+}
+
 public interface IGameStateEnterable<TState> : IGameState
     where TState : IGameState
 {
     void Enter();
-}
-
-public interface IGameState
-{
-    void Exit();
 }
 
 public interface IGameState<TState, TConfig> : IGameState

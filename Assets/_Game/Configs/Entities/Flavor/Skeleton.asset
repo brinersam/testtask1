@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbe595f0ef73a5446a2222209a483baf, type: 3}
-  m_Name: HumanKnight
+  m_Name: Skeleton
   m_EditorClassIdentifier: 
-  Name: Human Knight
-  Description: Oridnary knight
-  CharacterSprite: {fileID: 21300000, guid: 2f4a573e256816847ad484a0358085c3, type: 3}
+  Name: Skeleton Archer
+  Description: Living bones
+  CharacterSprite: {fileID: 21300000, guid: a877cc6a6827a59439a0c8a307b27dad, type: 3}

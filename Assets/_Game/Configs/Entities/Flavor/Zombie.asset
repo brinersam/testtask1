@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbe595f0ef73a5446a2222209a483baf, type: 3}
-  m_Name: HumanKnight
+  m_Name: Zombie
   m_EditorClassIdentifier: 
-  Name: Human Knight
-  Description: Oridnary knight
-  CharacterSprite: {fileID: 21300000, guid: 2f4a573e256816847ad484a0358085c3, type: 3}
+  Name: Zombie
+  Description: Undead alive
+  CharacterSprite: {fileID: 21300000, guid: 28577873ba2a69348bb93afc40a1de0b, type: 3}

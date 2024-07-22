@@ -18,7 +18,8 @@ public class NodeTreeAssembler
             MapNodeData node = new MapNodeData(
                 nodeData.Id,
                 nodeData.Flavor ?? _config.GlobalFlavor,
-                nodeData.State);
+                nodeData.State,
+                nodeData.Spawner.Length != 0 ? nodeData.Spawner : _config.GlobalSpawner);
             result.Add(node.Id, node);
 
             foreach (int neighbourID in nodeData.ConnectedNodeIds)

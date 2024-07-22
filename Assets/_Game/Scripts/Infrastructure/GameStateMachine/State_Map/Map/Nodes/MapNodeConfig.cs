@@ -8,6 +8,7 @@ public struct MapNodeConfig
     public List<int> ConnectedNodeIds;
     public SOMapNodeFlavor Flavor;
     public MapNodeState State;
+    public SOEntitySpawner[] Spawner;
 }
 
 public enum MapNodeState

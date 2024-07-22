@@ -4,20 +4,12 @@ using UnityEngine.UI;
 
 public class CardVisual : MonoBehaviour
 {
-    [SerializeField] private SOCard DEBUGCARDDATA; //todo delete
-
     [SerializeField] private Text _gObjName;
     [SerializeField] private Image _gObjImage;
     [SerializeField] private Text _gObjEnergyCost;
     [SerializeField] private Text _gObjDescription;
 
     private Card _lastCardInfo;
-
-    private void Start()
-    {
-        _lastCardInfo = DEBUGCARDDATA;
-        UpdateVisuals();
-    }
 
     public void SetData(Card card)
     {
