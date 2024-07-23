@@ -1,8 +1,9 @@
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardVisual : MonoBehaviour
+public class CardVisual : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Text _gObjName;
     [SerializeField] private Image _gObjImage;
@@ -15,6 +16,11 @@ public class CardVisual : MonoBehaviour
     {
         _lastCardInfo = card;
         UpdateVisuals();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log($"Card {_lastCardInfo.CardName} was clicked!");
     }
 
     private void UpdateVisuals()
@@ -31,6 +37,16 @@ public class CardVisual : MonoBehaviour
         }
 
         _gObjDescription.text = sb.ToString();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        gameObject.transform.localScale = Vector3.one * 1.5f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        gameObject.transform.localScale = Vector3.one;
     }
 }
 
