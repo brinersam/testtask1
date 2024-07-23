@@ -2,6 +2,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 public class CardVisual : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -10,27 +11,36 @@ public class CardVisual : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
     [SerializeField] private Text _gObjEnergyCost;
     [SerializeField] private Text _gObjDescription;
 
-    private Card _lastCardInfo;
+    private Card _lastCardData;
+
+    private IBattleModel _battleModel;
+    [Inject]
+    private void Init(IBattleModel model)
+    {
+        _battleModel = model;
+    }
 
     public void SetData(Card card)
     {
-        _lastCardInfo = card;
+        _lastCardData = card;
+        _lastCardData._myVisual = this;
         UpdateVisuals();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log($"Card {_lastCardInfo.CardName} was clicked!");
+        _battleModel.HandleClick(eventData, new BattleClickInfo_card(eventData, _lastCardData));
+        Debug.Log($"Card {_lastCardData.CardName} was clicked!");
     }
 
     private void UpdateVisuals()
     {
-        _gObjName.text = _lastCardInfo.CardName;
-        _gObjImage.sprite = _lastCardInfo.CardImage;
-        _gObjEnergyCost.text = _lastCardInfo.CardCost.ToString();
+        _gObjName.text = _lastCardData.CardName;
+        _gObjImage.sprite = _lastCardData.CardImage;
+        _gObjEnergyCost.text = _lastCardData.CardCost.ToString();
         StringBuilder sb = new StringBuilder();
 
-        foreach(SOCardEffect effect in _lastCardInfo.Effects)
+        foreach(SOCardEffect effect in _lastCardData.Effects)
         {
             sb.AppendLine(effect.ToString());
             sb.Append("\n");

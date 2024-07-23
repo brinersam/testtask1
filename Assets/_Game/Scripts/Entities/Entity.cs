@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 public class Entity : IEntity
 {
-    //private Dictionary<IEntityState,List<TEntityState>> State; 
-    // health and energy and anythign else could be generalized to a Type for super modularity
-
     private int _maxHealth;
     private int _maxEnergy;
 
@@ -15,6 +12,7 @@ public class Entity : IEntity
     private Deck _deck;
     private SOEntity _entityData;
 
+    public EntityVisual _myVisual;
     public List<ICardEffect> currentEffects; // both buffs and debuffs
 
     public (int current, int max) Health => (_curHealth, _maxHealth);

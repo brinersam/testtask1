@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBattleRenderer
@@ -109,5 +110,5 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
 public interface IBattleModel : IGameStateRendererUser
 {
     IEnumerable<Card> GetPlayerDeckDEBUG(); // todo wire properly to inhand container of battle
-    void HandleClick();
+    void HandleClick(PointerEventData eventData, IBattleClickInfo clickData);
 }

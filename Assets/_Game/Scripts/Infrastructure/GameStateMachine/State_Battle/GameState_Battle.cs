@@ -1,6 +1,7 @@
 using Game.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Params>, IBattleModel, IGameStateRendererUser
 {
@@ -28,7 +29,7 @@ public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Pa
         Team teamAI = new Team(new AiDriver(), enemyTeamEnts);
         Team teamPlayer = new Team(new PlayerDriver(), new Entity[] { _playerData.Entity });
 
-        TurnQueue turnQueue = new TurnQueue();
+        TurnLoop turnQueue = new TurnLoop();
 
         turnQueue.TurnStage_Choose(teamAI).
                 TurnStage_ActChoose(teamPlayer).
@@ -39,7 +40,7 @@ public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Pa
                                     battleRenderer);
 
         _renderer.Render();
-        _currentBattle.PlayATurn();
+        _currentBattle.StartBattle();
     }
 
     public void Exit()
@@ -49,9 +50,9 @@ public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Pa
         _renderer.Hide();
     }
 
-    public void HandleClick()
+    public void HandleClick(PointerEventData eventData, IBattleClickInfo clickData)
     {
-        _currentBattle.HandleClick();
+        _currentBattle.HandleClick(eventData, clickData);
     }
 
     public IEnumerable<Card> GetPlayerDeckDEBUG()

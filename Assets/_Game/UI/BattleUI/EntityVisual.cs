@@ -22,6 +22,7 @@ public class EntityVisual : MonoBehaviour, IPointerDownHandler
 
     public void SetData(Entity ent)//, Battle battle)
     {
+        ent._myVisual = this;
         _lastCreatureData = ent;
         UpdateVisuals();
     }
@@ -50,6 +51,8 @@ public class EntityVisual : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        _battleModel.HandleClick(eventData, new BattleClickInfo_entity(eventData, _lastCreatureData));
         Debug.Log($"Entity {_lastCreatureData.EntityData.name} was clicked!");
     }
 }
+

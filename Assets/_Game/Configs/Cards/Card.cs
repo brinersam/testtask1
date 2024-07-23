@@ -3,6 +3,7 @@ using UnityEngine;
 public class Card
 { 
     private SOCard _cardData;
+    public CardVisual _myVisual;
 
     public Card(SOCard cardData)
     {
