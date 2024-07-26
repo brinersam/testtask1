@@ -1,22 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 
 public class AiDriver : TeamDriver
 {
-
-    public List<Action<Battle>> QueuedActions { get; }
-
-    public override void Act(Battle context)
+    public override void Execute(Battle context)
     {
-
+        foreach (Entity ent in _team.entities)
+        {
+            foreach (ICardIntent intent in ent.QueuedActions)
+                intent.Play(context);
+        }
     }
 
-    public override void Choose(Battle context)
+    public override void Plan(Battle context)
     {
-
+        foreach (Entity ent in _team.entities)
+        {
+            Card card = ent.Deck.GetRandomCard();
+            foreach (var effect in card.Effects)
+            { } // new Intent(context, effect.Predicate)
+                //  ent.QueuedActions.Add(intent);
+        }
     }
 
-    public override void ActChoose(Battle context)
+    public override void PlanExecute(Battle context)
     {
     }
 }

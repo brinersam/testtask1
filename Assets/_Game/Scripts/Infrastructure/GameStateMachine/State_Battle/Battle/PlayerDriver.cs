@@ -1,17 +1,17 @@
 ﻿public class PlayerDriver : TeamDriver
 {
-    public override void Act(Battle context)
+    public override void Execute(Battle context)
     {
 
     }
 
-    public override void Choose(Battle context)
+    public override void Plan(Battle context)
     {
 
     }
 
-    public override void ActChoose(Battle context)
+    public override void PlanExecute(Battle context)
     {
-        context._playerInteractor.TurnInProgress = true;
+        context._playerInteractor.BeginTurn();
     }
 }

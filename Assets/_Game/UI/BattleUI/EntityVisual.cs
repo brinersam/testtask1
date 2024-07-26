@@ -31,14 +31,10 @@ public class EntityVisual : MonoBehaviour, IPointerDownHandler
     {
         _creatureImage.sprite = _lastCreatureData.EntityData.Flavor.CharacterSprite;
 
-        if (_lastCreatureData as AiEntity is AiEntity aientity)
+        foreach (var intent in _lastCreatureData.QueuedActions)
         {
-            Debug.Log($"{_lastCreatureData.EntityData.name} : I am ai powered!");
-            foreach (var effect in aientity.QueuedActions)
-            {
-                //_intentContainer.Instantiate(intentIcon)
-                // accumulate effect to one or to many effects or whatver that logic goes here
-            }
+            //_intentContainer.Instantiate(intentIcon)
+            // accumulate effect to one or to many effects or whatver that logic goes here
         }
 
         foreach (var buff in _lastCreatureData.currentEffects)

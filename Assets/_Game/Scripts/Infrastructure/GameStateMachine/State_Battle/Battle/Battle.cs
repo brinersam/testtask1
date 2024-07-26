@@ -1,15 +1,15 @@
+using Game.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 public class Battle
 {
-    private Team[] _teamList;
     private TurnLoop _turnMgr;
 
     private PlayerHand _playerHand;
 
+    public Team[] Teams;
     public PlayerInteractor _playerInteractor;
 
     public IBattleRenderer _renderer;
@@ -17,14 +17,14 @@ public class Battle
     public List<Action<Battle>> PreTurnEffects;
     public List<Action<Battle>> PostTurnEffects;
 
-    public Battle(Team[] teams, TurnLoop turnStructure, IBattleRenderer renderer)
+    public Battle(Team[] teams, TurnLoop turnStructure, PlayerData playerData, IBattleRenderer renderer)
     {
         _turnMgr = turnStructure;
-        _teamList = teams;
+        Teams = teams;
         _renderer = renderer;
         _renderer.TeamLeft = teams[0];
         _renderer.TeamRight = teams[1];
-        _playerInteractor = new();
+        _playerInteractor = new PlayerInteractor(this , playerData);
     }
 
     public void StartBattle()
@@ -60,47 +60,27 @@ public class Battle
             Action<Battle> step = _turnMgr.ProgressMove();
             step.Invoke(this);
 
-            if (_playerInteractor.TurnInProgress == true)
+            if (_playerInteractor.TurnRequested)
                 await _playerInteractor.WaitForInputAsync();
         }
     }
 
     private bool IsOneTeamDead()
     {
-        return _teamList.Any(team => team.entities.All(ent => ent.Health.current <= 0));
-    }
-}
-
-public class PlayerInteractor
-{
-    public bool TurnInProgress;
-    private TaskCompletionSource<bool> _tcs;
-
-    public void Click<T>(PointerEventData eventData, T data) where T: IBattleClickInfo
-    {
-        if (data is BattleClickInfo_endturn endturn)
-            ClickHandle(eventData, endturn);
-        if (data is BattleClickInfo_card card)
-            ClickHandle(eventData, card);
-        if (data is BattleClickInfo_entity entity)
-            ClickHandle(eventData, entity);
+        return Teams.Any(team => team.entities.All(ent => ent.IsDead));
     }
 
-    private void ClickHandle(PointerEventData eventData, BattleClickInfo_endturn data)
+    internal void ProcessEffect(Entity callerEntity, SOCardEffect effect, IList<Entity> targets = null)
     {
-        _tcs.SetResult(true);
-    }
-    private void ClickHandle(PointerEventData eventData, BattleClickInfo_card data)
-    {
-    }
-    private void ClickHandle(PointerEventData eventData, BattleClickInfo_entity data)
-    {
-    }
-
-    public async Task WaitForInputAsync()
-    {
-        _tcs = new TaskCompletionSource<bool>();
-        await _tcs.Task;
+        foreach
+            (Entity ent in Teams
+                .SelectMany(team => team.entities
+                    .Where(entity => effect.Predicate(callerEntity,entity))
+                )
+             )
+        {
+            effect.ApplyEffect(callerEntity, ent);
+        }
     }
 }
 

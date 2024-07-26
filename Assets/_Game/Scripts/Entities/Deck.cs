@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Deck : IEnumerable<Card>
 {
@@ -15,6 +17,12 @@ public class Deck : IEnumerable<Card>
         {
             AddCard(card);
         }
+    }
+
+    public Card GetRandomCard()
+    {
+
+        return _cards.ElementAt(new Random().Next(0, _cards.Keys.Count)).Key;
     }
 
     public void AddCard(Card card)

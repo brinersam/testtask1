@@ -11,7 +11,7 @@ public class TurnLoop
     public event Action PostTurnEffects;
     public TurnLoop()
     {
-        _actionQueue = new ();
+        _actionQueue = new();
     }
 
     public Action<Battle> ProgressMove() //Action<Battle>
@@ -25,20 +25,20 @@ public class TurnLoop
         _stageIndex %= _actionQueue.Count;
         return _actionQueue[_stageIndex++];
     }
-    public TurnLoop TurnStage_ActChoose(Team team)
+    public TurnLoop TurnStage_PlanAndExecute(Team team)
     {
-        _actionQueue.Add(team.ActChoose);
+        _actionQueue.Add(team.PlanExecute);
         return this;
     }
 
-    public TurnLoop TurnStage_Act(Team team)
+    public TurnLoop TurnStage_Execute(Team team)
     {
-        _actionQueue.Add(team.Act);
+        _actionQueue.Add(team.Execute);
         return this;
     }
-    public TurnLoop TurnStage_Choose(Team team)
+    public TurnLoop TurnStage_Plan(Team team)
     {
-        _actionQueue.Add(team.Choose);
+        _actionQueue.Add(team.Plan);
         return this;
     }
 

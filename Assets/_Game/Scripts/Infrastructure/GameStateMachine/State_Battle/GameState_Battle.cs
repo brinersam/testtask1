@@ -1,5 +1,4 @@
 using Game.Infrastructure;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
 
@@ -31,12 +30,13 @@ public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Pa
 
         TurnLoop turnQueue = new TurnLoop();
 
-        turnQueue.TurnStage_Choose(teamAI).
-                TurnStage_ActChoose(teamPlayer).
-                TurnStage_Act(teamAI);
+        turnQueue.TurnStage_Plan(teamAI).
+                TurnStage_PlanAndExecute(teamPlayer).
+                TurnStage_Execute(teamAI);
 
         _currentBattle = new Battle(new Team[] { teamPlayer, teamAI },
                                     turnQueue,
+                                    _playerData,
                                     battleRenderer);
 
         _renderer.Render();
@@ -55,10 +55,10 @@ public class GameState_Battle : IGameState<GameState_Battle, GameState_Battle_Pa
         _currentBattle.HandleClick(eventData, clickData);
     }
 
-    public IEnumerable<Card> GetPlayerDeckDEBUG()
-    {
-        return _playerData.Entity.Deck;
-    }
+    //public IEnumerable<Card> GetPlayerDeckDEBUG()
+    //{
+    //    return _playerData.Entity.Deck;
+    //}
 }
 
 public struct GameState_Battle_Params : IGameStateParams<GameState_Battle>

@@ -20,7 +20,7 @@ namespace Game.Infrastructure
             // Load enemy factories
             // Load cards
 
-            PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity, false));
+            PlayerData playerData = new PlayerData(new Entity(_gameConfig.PlayerEntity));
 
             // Create game states
             GameState_Map stateMap = new GameState_Map(_GSM, _gameConfig.ConfigMap);

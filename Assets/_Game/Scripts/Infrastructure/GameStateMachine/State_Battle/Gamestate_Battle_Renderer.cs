@@ -43,7 +43,7 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
 
         RenderTeam(_visualChildrenLeft, _teamLeft, _entitiesGOLeftContainer);
         RenderTeam(_visualChildrenRight, _teamRight, _entitiesGORightContainer);
-        RenderCards(_model.GetPlayerDeckDEBUG().ToList());
+        //RenderCards(_model.GetPlayerDeckDEBUG().ToList());
     }
 
     private void RenderTeam(List<EntityVisual> gobjectsList, Team team, Transform parentTransform)
@@ -109,6 +109,6 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
 
 public interface IBattleModel : IGameStateRendererUser
 {
-    IEnumerable<Card> GetPlayerDeckDEBUG(); // todo wire properly to inhand container of battle
+    //IEnumerable<Card> GetPlayerDeckDEBUG(); // todo wire properly to inhand container of battle
     void HandleClick(PointerEventData eventData, IBattleClickInfo clickData);
 }

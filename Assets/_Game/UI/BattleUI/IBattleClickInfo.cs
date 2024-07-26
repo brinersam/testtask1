@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using System;
+using UnityEngine.EventSystems;
 
 public interface IBattleClickInfo
 {
@@ -18,18 +19,16 @@ public class BattleClickInfo_entity : IBattleClickInfo
         _ent = ent;
     }
 
-    
 }
 
 public class BattleClickInfo_card : IBattleClickInfo
 {
-    public PointerEventData EventData => _eventData;
-    PointerEventData _eventData;
-    Card _card;
+    public PointerEventData EventData { get; }
+    public Card Card;
     public BattleClickInfo_card(PointerEventData eventData, Card card)
     {
-        _eventData = eventData;
-        _card = card;
+        EventData = eventData;
+        Card = card;
     }
 }
 

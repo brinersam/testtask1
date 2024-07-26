@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b944821e2ae0534196d1c8317eb316e, type: 3}
   m_Name: Defend
   m_EditorClassIdentifier: 
+  targeter: 0
+  targetAmount: 1
   TargetPLACEHOLDER: Self
   EffectPLACEHOLDER: Defends

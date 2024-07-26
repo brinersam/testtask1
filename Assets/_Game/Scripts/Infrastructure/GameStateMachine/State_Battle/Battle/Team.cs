@@ -1,26 +1,21 @@
 ﻿public class Team
 {
-    TeamDriver driver;
+    private TeamDriver _driver;
     public Entity[] entities { get; }
-    public Team(TeamDriver type, Entity[] entities)
+    public Team(TeamDriver driver, Entity[] entities) // todo entity -> entitySO, driver implements entity factory to make player ents and AI ents
     {
-        driver = type;
+        _driver = driver;
+        driver.SetTeam(this);
         this.entities = entities;
     }
 
-    public void Act(Battle context)
-    {
-        driver.Act(context);
-    }
+    public void Execute(Battle context) =>
+        _driver.Execute(context);
 
-    public void Choose(Battle context)
-    {
-        driver.Choose(context);
-    }
+    public void Plan(Battle context) =>
+        _driver.Plan(context);
 
-    public void ActChoose(Battle context)
-    {
-        driver.ActChoose(context);
-    }
+    public void PlanExecute(Battle context) =>
+        _driver.PlanExecute(context);
 
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Entity : IEntity
+public class Entity : IEntity, IDisposable
 {
     private int _maxHealth;
     private int _maxEnergy;
@@ -9,21 +9,21 @@ public class Entity : IEntity
     private int _curHealth;
     private int _curEnergy;
 
-    private Deck _deck;
-    private SOEntity _entityData;
-
     public EntityVisual _myVisual;
-    public List<ICardEffect> currentEffects; // both buffs and debuffs
+    public List<ICardEffect> currentEffects = new(); // both buffs and debuffs
+    public List<ICardIntent> QueuedActions = new();
 
     public (int current, int max) Health => (_curHealth, _maxHealth);
     public (int current, int max) Energy => (_curEnergy, _maxEnergy);
-    public Deck Deck => _deck;
-    public SOEntity EntityData => _entityData;
-    public bool IsEnemy { get; }
 
-    public Entity(SOEntity data, bool isEnemy = true) 
+    public Team InTeam;
+    public bool IsDead => _curHealth <= 0;
+    public Deck Deck { get; }
+    public SOEntity EntityData { get; }
+
+    public Entity(SOEntity data) 
     {
-        _entityData = data;
+        EntityData = data;
 
         _maxHealth = data.StartingStats.MaxHealth;
         _curHealth = _maxHealth;
@@ -34,26 +34,32 @@ public class Entity : IEntity
         if (data.StartingDeck == null)
             throw new Exception($"Deck was not set for entity: {data.name}");
 
-        _deck = data.StartingDeck;
-        IsEnemy = isEnemy;
+        Deck = data.StartingDeck;
         currentEffects = data.StartingEffects ?? new();
     }
-}
 
-public class AiEntity : Entity
-{
-    private AiDriver _aiDriver;
-
-    public AiEntity(SOEntity data, AiDriver driver, bool isEnemy = true) : base(data, isEnemy)
+    public void ReceiveDamage(int dmg)
     {
-        _aiDriver = driver;
+        _curHealth -= dmg;
+        //if (IsDead)
+
     }
 
-    public List<Action<Battle>> QueuedActions => _aiDriver.QueuedActions;
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal bool FriendlyTowards(Entity targetEnt)
+    {
+        throw new NotImplementedException();
+    }
 }
+
 
 public interface IEntity
 {
     (int current, int max) Health { get; }
     (int current, int max) Energy { get; }
+    bool IsDead { get; }
 }

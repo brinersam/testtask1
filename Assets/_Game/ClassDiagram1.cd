@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Deck" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAEABQAAAAAAABAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Entities\Deck.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Entity" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAAAAIAAAAAAAAFAAAAAAAAAIACgAhAAEIABAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Entities\Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameStateMachine">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAABAAAAAAAAAAQAAAAAABAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\GameStateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battle">
+    <Position X="1.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAACAAMAAABMAAAAAEAAAAEAgEAEAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\Battle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_playerHand" />
+      <Field Name="_playerInteractor" />
+      <Field Name="_renderer" />
+      <Field Name="_teamList" />
+      <Field Name="_turnMgr" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerHand">
+    <Position X="7.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\PlayerHand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Discard" />
+      <Field Name="Hand" />
+      <Field Name="Pile" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerInteractor">
+    <Position X="1.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEgAAAAAAAAAAAAAAAACAAAAAAAAAgAgA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\PlayerInteractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team">
+    <Position X="3.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAggAAAAAAAAAAAQAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\Team.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_driver" />
+      <Property Name="entities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TurnLoop">
+    <Position X="5.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAMAABAAAAAEAAEAAAAAAFAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\TurnLoop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState_Battle" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAEAEAAIQCAAAIAEAQ=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\GameState_Battle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_playerData" />
+      <Field Name="_currentBattle" />
+      <Field Name="_gsm" />
+      <Field Name="_renderer" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gamestate_Battle_Renderer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQhAAIAIgAAAAAAAEgAAACAAAEAAFAgAABACAIAgBDA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Gamestate_Battle_Renderer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameState_Map" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAgAAAAAABAgAAAAAAAAEAAGAAAAIgAAAAAQAAQ=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\GameState_Map.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameState_Map_Renderer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAABAAAEEEgAAACABAAAABAAAABACAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\GameState_Map_Renderer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MapNodeData" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAACAAAAAAAAAAAAAAAQAAAAIAAAABAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\Map\Nodes\MapNodeData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodeTreeAssembler" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\Map\Nodes\NodeTreeAssembler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game.Infrastructure.EntryPoint" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABABAAACAAAIAAAAAAQgAAAAACACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\EntryPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game.Infrastructure.PlayerData">
+    <Position X="4.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\PlayerData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Entity" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TeamDriver">
+    <Position X="6" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAggEAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\TeamDriver.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_team" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="EntityStats" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Entities\EntityStats.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BattleReport" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\Battle.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GameState_Battle_Params" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\GameState_Battle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="MapNodeConfig" Collapsed="true">
+    <Position X="15.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAEAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\Map\Nodes\MapNodeConfig.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IEntity" Collapsed="true">
+    <Position X="12" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Entities\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IGameStateParams&lt;State&gt;" Collapsed="true">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\IGameState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IGameStateRenderer" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\IGameStateRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBattleRenderer" Collapsed="true">
+    <Position X="2.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABCA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Battle\Battle\Battle.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="INodeProvider" Collapsed="true">
+    <Position X="12" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\GameState_Map_Renderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Game.Infrastructure.IWarmupableSystem" Collapsed="true">
+    <Position X="13.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\IWarmupableSystem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MapNodeState" Collapsed="true">
+    <Position X="10.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAIAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Infrastructure\GameStateMachine\State_Map\Map\Nodes\MapNodeConfig.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

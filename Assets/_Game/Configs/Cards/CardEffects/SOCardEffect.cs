@@ -5,35 +5,59 @@ using UnityEngine;
 public class SOCardEffect : ScriptableObject
 {
     public EnumTarget targeter;
-    public string TargetPLACEHOLDER; //todo remove
+    public int targetAmount = 1;
+    public bool affectAll = false;
     public string EffectPLACEHOLDER; //todo remove
 
-    //public Action<Entity> GetCardEffectOn(Entity user, Entity target)
-    //{
+    public bool Predicate(Entity callerEnt, Entity targetEnt)
+    {
+        if (affectAll)
+            return true;
 
-    //}
+        if (targeter == EnumTarget.ME)
+            return callerEnt == targetEnt;
+
+        if (targeter == EnumTarget.ENEMYTEAM)
+            return !callerEnt.FriendlyTowards(targetEnt);
+
+        if (targeter == EnumTarget.MYTEAM)
+            return callerEnt.FriendlyTowards(targetEnt);
+
+        return false;
+    }
+
+    public bool RequiresTargets()
+    {
+        return !affectAll || targeter == EnumTarget.ME;
+    }
+
+    public void ApplyEffect(Entity callerEnt, Entity targetEnt)
+    {
+        targetEnt.ReceiveDamage(3);
+    }
 
     public override string ToString()
     {
-        return $"Does {EffectPLACEHOLDER} to {TargetPLACEHOLDER}";
+        return $"Does {EffectPLACEHOLDER} to {targeter.ToString()}:{targetAmount}";
     }
 }
 
 [Flags]
 public enum EnumTarget
 {
-    ME = 0,
     MYTEAM = 1,
-    MYENEMY = 2,
-    ALL = 4,
-    ONE = 8,
-    TWO = 16,
-    FOUR = 32
+    ENEMYTEAM = 2,
+    ME = 4
 }
 
 
 public interface ICardEffect
 {
+}
+
+public interface ICardIntent
+{
+    void Play(Battle context);
 }
 
 //public enum TargetType

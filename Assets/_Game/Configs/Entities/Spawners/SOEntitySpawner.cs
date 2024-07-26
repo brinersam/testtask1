@@ -11,7 +11,7 @@ public class SOEntitySpawner : ScriptableObject
     {
         for (int i = 0; i < AmountWanted; i++)
         {
-            yield return new Entity(PossibleEntities[Random.Range(0, PossibleEntities.Length)], isEnemy);
+            yield return new Entity(PossibleEntities[Random.Range(0, PossibleEntities.Length)]);
         }
     }
 }
