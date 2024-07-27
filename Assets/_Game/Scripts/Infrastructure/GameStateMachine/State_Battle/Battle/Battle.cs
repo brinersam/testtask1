@@ -6,13 +6,9 @@ using UnityEngine.EventSystems;
 public class Battle
 {
     private TurnLoop _turnMgr;
-
-    private PlayerHand _playerHand;
-
-    public Team[] Teams;
-    public PlayerInteractor _playerInteractor;
-
-    public IBattleRenderer _renderer;
+    private Team[] _teams;
+    private PlayerInteractor _playerInteractor;
+    private IBattleRenderer _renderer;
 
     public List<Action<Battle>> PreTurnEffects;
     public List<Action<Battle>> PostTurnEffects;
@@ -20,11 +16,16 @@ public class Battle
     public Battle(Team[] teams, TurnLoop turnStructure, PlayerData playerData, IBattleRenderer renderer)
     {
         _turnMgr = turnStructure;
-        Teams = teams;
+        _teams = teams;
         _renderer = renderer;
-        _renderer.TeamLeft = teams[0];
-        _renderer.TeamRight = teams[1];
-        _playerInteractor = new PlayerInteractor(this , playerData);
+
+        _renderer.TeamLeft = _teams[0];
+        _renderer.TeamRight = _teams[1];
+
+        _playerInteractor = new PlayerInteractor(
+                                        this,
+                                        teams[0],
+                                        new PlayerHand(teams[0], 2, _renderer));
     }
 
     public void StartBattle()
@@ -32,6 +33,11 @@ public class Battle
         _turnMgr.PreTurnEffects += ApplyPreTurnEffects;
         _turnMgr.PostTurnEffects += ApplyPostTurnEffects;
         PlayNextMove();
+    }
+
+    public void StartPlayerTurn()
+    {
+        _playerInteractor.BeginTurn();
     }
 
     public void ApplyPreTurnEffects()
@@ -67,25 +73,32 @@ public class Battle
 
     private bool IsOneTeamDead()
     {
-        return Teams.Any(team => team.entities.All(ent => ent.IsDead));
+        return _teams.Any(team => team.entities.All(ent => ent.IsDead));
     }
 
-    internal void ProcessEffect(Entity callerEntity, SOCardEffect effect, IList<Entity> targets = null)
+    internal void ProcessEffect(Entity callerEntity, EffectWithTargeter effectWTarget, IEnumerable<Entity> targets = null)
     {
-        foreach
-            (Entity ent in Teams
-                .SelectMany(team => team.entities
-                    .Where(entity => effect.Predicate(callerEntity,entity))
-                )
-             )
+        if (targets != null)
         {
-            effect.ApplyEffect(callerEntity, ent);
+            foreach (Entity ent in targets)
+                effectWTarget.Effect.ApplyEffect(callerEntity, ent);
+            return;
+        }
+
+        foreach(Entity ent in _teams
+                    .SelectMany(team => team.entities
+                        .Where(entity => effectWTarget.WillTarget(callerEntity,entity))
+                    )
+               )
+        {
+            effectWTarget.Effect.ApplyEffect(callerEntity, ent);
         }
     }
 }
 
 public interface IBattleRenderer
 {
+    void DisplayCardsForPlayableEntity(Deck deck);
     Team TeamLeft { get; set; }
     Team TeamRight { get; set; }
 }

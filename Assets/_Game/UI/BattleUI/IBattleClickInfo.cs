@@ -8,15 +8,14 @@ public interface IBattleClickInfo
 
 public class BattleClickInfo_entity : IBattleClickInfo
 {
-    public PointerEventData EventData => _eventData;
-    PointerEventData _eventData;
+    public PointerEventData EventData { get; }
 
-    Entity _ent;
+    public Entity Entity;
 
     public BattleClickInfo_entity(PointerEventData eventData, Entity ent)
     {
-        _eventData = eventData;
-        _ent = ent;
+        EventData = eventData;
+        Entity = ent;
     }
 
 }

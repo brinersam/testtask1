@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Entity : IEntity, IDisposable
+public class Entity : IEntity
 {
     private int _maxHealth;
     private int _maxEnergy;
@@ -10,13 +10,13 @@ public class Entity : IEntity, IDisposable
     private int _curEnergy;
 
     public EntityVisual _myVisual;
-    public List<ICardEffect> currentEffects = new(); // both buffs and debuffs
-    public List<ICardIntent> QueuedActions = new();
+    public List<SOCardEffect> currentEffects = new(); // both buffs and debuffs
+    public List<EffectWithTargeter> QueuedActions = new();
 
     public (int current, int max) Health => (_curHealth, _maxHealth);
     public (int current, int max) Energy => (_curEnergy, _maxEnergy);
 
-    public Team InTeam;
+    public Team Team;
     public bool IsDead => _curHealth <= 0;
     public Deck Deck { get; }
     public SOEntity EntityData { get; }
@@ -41,18 +41,13 @@ public class Entity : IEntity, IDisposable
     public void ReceiveDamage(int dmg)
     {
         _curHealth -= dmg;
+        _myVisual.UpdateVisuals();
         //if (IsDead)
-
     }
 
-    public void Dispose()
+    public bool FriendlyTowards(Entity targetEnt)
     {
-        throw new NotImplementedException();
-    }
-
-    internal bool FriendlyTowards(Entity targetEnt)
-    {
-        throw new NotImplementedException();
+        return Team == targetEnt.Team;
     }
 }
 

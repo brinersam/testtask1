@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targeter: -1
   targetAmount: 1
-  TargetPLACEHOLDER: Everyone
-  EffectPLACEHOLDER: Death
+  maxTargets: 1

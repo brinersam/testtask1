@@ -8,6 +8,6 @@ public class SOEntity : ScriptableObject
     public SOEntityFlavor Flavor;
     public EntityStats StartingStats;
     public SODeck StartingDeck;
-    public List<ICardEffect> StartingEffects;
+    public List<SOCardEffect> StartingEffects;
 }
 

@@ -40,7 +40,7 @@ public class CardVisual : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
         _gObjEnergyCost.text = _lastCardData.CardCost.ToString();
         StringBuilder sb = new StringBuilder();
 
-        foreach(SOCardEffect effect in _lastCardData.Effects)
+        foreach(EffectWithTargeter effect in _lastCardData.Effects)
         {
             sb.AppendLine(effect.ToString());
             sb.Append("\n");

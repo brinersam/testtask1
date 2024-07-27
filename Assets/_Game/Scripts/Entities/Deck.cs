@@ -6,9 +6,12 @@ using System.Linq;
 public class Deck : IEnumerable<Card>
 {
     private Dictionary <Card, int> _cards = new();
+
+    public bool HasCards => _cards.Count > 0;
+    public int Count => _cards.Count;
+
     public Deck()
     {
-
     }
 
     public Deck(IEnumerable<SOCard> cards)
@@ -21,7 +24,6 @@ public class Deck : IEnumerable<Card>
 
     public Card GetRandomCard()
     {
-
         return _cards.ElementAt(new Random().Next(0, _cards.Keys.Count)).Key;
     }
 
@@ -32,15 +34,20 @@ public class Deck : IEnumerable<Card>
         _cards[card]++;
     }
 
-    public void RemoveCard(Card card)
+    public Card RemoveCard(Card card = null)
     {
+        if (card ==null)
+            card = GetRandomCard();
+        
         if (!_cards.ContainsKey(card))
-            return;
+            return null;
 
         _cards[card]--;
 
         if (_cards[card] == 0)
             _cards.Remove(card);
+
+        return card;
     }
 
     public IEnumerator<Card> GetEnumerator()

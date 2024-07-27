@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -43,7 +42,6 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
 
         RenderTeam(_visualChildrenLeft, _teamLeft, _entitiesGOLeftContainer);
         RenderTeam(_visualChildrenRight, _teamRight, _entitiesGORightContainer);
-        //RenderCards(_model.GetPlayerDeckDEBUG().ToList());
     }
 
     private void RenderTeam(List<EntityVisual> gobjectsList, Team team, Transform parentTransform)
@@ -64,28 +62,40 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
                 childrenCount++;
             }
 
+            gobjectsList[currentChildIdx].gameObject.SetActive(true);
             gobjectsList[currentChildIdx].SetData(entData);
             currentChildIdx++;
         }
+        
+        while (currentChildIdx < childrenCount - 1)
+        {
+            gobjectsList[currentChildIdx++].gameObject.SetActive(false);
+        }
     }
 
-    private void RenderCards(IList<Card> cardsInHand)
+    private void RenderCards(IEnumerable<Card> cardsInHand)
     {
         int currentChildIdx = 0;
         int childrenCount = _visualCardsInHand.Count;
 
-        // Iterate over all entities provided
-        foreach (Card entData in cardsInHand)
+        // Iterate over all cards provided
+        foreach (Card cardData in cardsInHand)
         {
-            // If we dont have enough entity objects, generate a new one on the fly and add to list
+            // If we dont have enough card objects, generate a new one on the fly and add to list
             if (currentChildIdx + 1 > childrenCount)
             {
                 _visualCardsInHand.Add(InstantiateGameObjReturnComponent<CardVisual>(_cardPrefab, _playerHandContainer));
                 childrenCount++;
             }
 
-            _visualCardsInHand[currentChildIdx].SetData(entData);
+            _visualCardsInHand[currentChildIdx].gameObject.SetActive(true);
+            _visualCardsInHand[currentChildIdx].SetData(cardData);
             currentChildIdx++;
+        }
+
+        while (currentChildIdx < childrenCount - 1)
+        {
+            _visualCardsInHand[currentChildIdx++].gameObject.SetActive(false);
         }
     }
 
@@ -105,6 +115,10 @@ public class Gamestate_Battle_Renderer : MonoBehaviour, IGameStateRenderer, IBat
         _UI.gameObject.SetActive(false);
     }
 
+    public void DisplayCardsForPlayableEntity(Deck deck)
+    {
+        RenderCards(deck);
+    }
 }
 
 public interface IBattleModel : IGameStateRendererUser

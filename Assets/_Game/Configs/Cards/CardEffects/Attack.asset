@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b944821e2ae0534196d1c8317eb316e, type: 3}
-  m_Name: Defend
+  m_Name: Attack
   m_EditorClassIdentifier: 
-  targeter: 4
+  targeter: 2
   targetAmount: 1
   maxTargets: 0

@@ -10,12 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2de580cd49cf5f44baf2c69d72441f10, type: 3}
-  m_Name: Deck_Player
+  m_Name: Deck_Monster
   m_EditorClassIdentifier: 
   Cards:
-  - {fileID: 11400000, guid: 63fa2157e00d273429365571f4a261fb, type: 2}
-  - {fileID: 11400000, guid: 63fa2157e00d273429365571f4a261fb, type: 2}
   - {fileID: 11400000, guid: f6d17a585fbb4c64eb850ab1f0c20517, type: 2}
-  - {fileID: 11400000, guid: f6d17a585fbb4c64eb850ab1f0c20517, type: 2}
-  - {fileID: 11400000, guid: f6d17a585fbb4c64eb850ab1f0c20517, type: 2}
-  - {fileID: 11400000, guid: 9fbedc825546abc4bbd5cf011a2ad6e3, type: 2}

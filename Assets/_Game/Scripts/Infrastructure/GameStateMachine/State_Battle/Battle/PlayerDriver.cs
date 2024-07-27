@@ -12,6 +12,6 @@
 
     public override void PlanExecute(Battle context)
     {
-        context._playerInteractor.BeginTurn();
+        context.StartPlayerTurn();
     }
 }

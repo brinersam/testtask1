@@ -6,7 +6,7 @@ public class AiDriver : TeamDriver
     {
         foreach (Entity ent in _team.entities)
         {
-            foreach (ICardIntent intent in ent.QueuedActions)
+            foreach (EffectWithTargeter intent in ent.QueuedActions)
                 intent.Play(context);
         }
     }
@@ -17,7 +17,7 @@ public class AiDriver : TeamDriver
         {
             Card card = ent.Deck.GetRandomCard();
             foreach (var effect in card.Effects)
-            { } // new Intent(context, effect.Predicate)
+            {}  // new Intent(context, effect.Predicate)
                 //  ent.QueuedActions.Add(intent);
         }
     }

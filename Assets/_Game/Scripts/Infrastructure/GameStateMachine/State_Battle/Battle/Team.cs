@@ -7,6 +7,14 @@
         _driver = driver;
         driver.SetTeam(this);
         this.entities = entities;
+
+        foreach (Entity entity in entities)
+            entity.Team = this;
+    }
+
+    public Entity this[int idx]
+    {
+        get { return entities[idx]; }
     }
 
     public void Execute(Battle context) =>

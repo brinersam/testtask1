@@ -1,4 +1,4 @@
-﻿using Game.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 
@@ -8,17 +8,24 @@ public class PlayerInteractor
         _turnCompletedTCS.Task.Status == TaskStatus.WaitingForActivation;
 
     private TaskCompletionSource<bool> _turnCompletedTCS;
+
     private PlayerTurnState _state;
     private readonly Battle _context;
 
-    private Card _lastCardSelected;
-    private PlayerData _playerData;
+    private Team _playerTeam;
+    private PlayerHand _playerHand;
+    private int _curCreatureIdx;
+    private HashSet<Entity> _targetedEntities;
+
+    private Entity _currentEntity => _playerTeam[_curCreatureIdx];
 
 
-    public PlayerInteractor(Battle context, PlayerData playerData)
+    public PlayerInteractor(Battle context, Team playerTeam, PlayerHand playerHand)
     {
         _context = context;
-        _playerData = playerData;
+        _playerTeam = playerTeam;
+        _playerHand = playerHand;
+        _targetedEntities = new();
     }
 
     public void Click(PointerEventData eventData, IBattleClickInfo data)
@@ -41,37 +48,79 @@ public class PlayerInteractor
 
     public void BeginTurn()
     {
-        _turnCompletedTCS = new TaskCompletionSource<bool>();
+        if (_turnCompletedTCS == null || _turnCompletedTCS.Task.IsCompleted)
+        {
+            _turnCompletedTCS = new TaskCompletionSource<bool>();
+            _curCreatureIdx = 0;
+        }
+
+        _playerHand.RenderHand(_playerHand.GetHandForEntity(_currentEntity));
         _state = PlayerTurnState.ChooseCard;
     }
 
     private void ClickHandle(PointerEventData eventData, BattleClickInfo_endturn data)
     {
-        _turnCompletedTCS.SetResult(true);
+        if (_state == PlayerTurnState.ChooseTargets)
+        {
+            _state = PlayerTurnState.ChooseCard;
+            return;
+        }
+
+        if (_curCreatureIdx >= _playerTeam.entities.Length)
+        {
+            _curCreatureIdx = 0;
+            _turnCompletedTCS.SetResult(true);
+        }
+
+        else
+        {
+            _curCreatureIdx++;
+            BeginTurn();
+        }
     }
-    private void ClickHandle(PointerEventData eventData, BattleClickInfo_card data)
+    private async void ClickHandle(PointerEventData eventData, BattleClickInfo_card data)
     {
         if (_state != PlayerTurnState.ChooseCard)
             return;
 
-        if (data.Card.CardCost > _playerData.Entity.Energy.current)
-            return; //todo blink energy bar
+        if (_state == PlayerTurnState.ChooseTargets)
+            _state = PlayerTurnState.ChooseCard;
 
-        foreach (SOCardEffect effect in data.Card.Effects)
+        if (data.Card.CardCost > _currentEntity.Energy.current)
+            return; //todo blink energy bar or some other form of visual response
+
+        foreach (EffectWithTargeter effect in data.Card.Effects)
         {
-            // if effect needs to have targets
-            //await select targets
+            if (!effect.maxTargets && effect.targetAmount > 0)
+            {
+                _state = PlayerTurnState.ChooseTargets;
+                await SelectTargetsAsync(effect.targetAmount);
+                
+            }
 
-            _context.ProcessEffect(_playerData.Entity, effect);
+            _context.ProcessEffect(_currentEntity, effect, _targetedEntities);
+
+            _playerHand.DiscardCard(_currentEntity, data.Card);
+
+            _state = PlayerTurnState.ChooseCard;
         }
-
     }
     private void ClickHandle(PointerEventData eventData, BattleClickInfo_entity data)
     {
         if (_state != PlayerTurnState.ChooseTargets)
             return;
 
+        _targetedEntities.Add(data.Entity);
+    }
 
+    private async Task SelectTargetsAsync(int amount)
+    {
+        _targetedEntities.Clear();
+
+        while (_targetedEntities.Count < amount || _state == PlayerTurnState.ChooseTargets)
+        {
+            await Task.Delay(200);
+        }
     }
 }
 

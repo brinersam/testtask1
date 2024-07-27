@@ -13,6 +13,6 @@ public class Card
     public int CardCost => _cardData.CardCost;
     public string CardName => _cardData.CardName;
     public Sprite CardImage => _cardData.CardImage;
-    public SOCardEffect[] Effects => _cardData.Effects;
+    public EffectWithTargeter[] Effects => _cardData.Effects;
 
 }
